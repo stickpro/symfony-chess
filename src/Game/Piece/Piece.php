@@ -3,7 +3,9 @@
 namespace App\Game\Piece;
 
 use App\Enum\Color;
+use App\Game\Board;
 use App\Game\Coordinates;
+use Ds\Set;
 
 abstract class Piece
 {
@@ -14,5 +16,12 @@ abstract class Piece
     {
     }
 
-    abstract public function getIcon(): string;
+    abstract protected function getIcon(): string;
+
+    public function getAvailableMoveSquares(Board $board)
+    {
+
+    }
+
+    abstract protected function getPieceMoves(): Set;
 }

@@ -9,6 +9,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+
 use function Termwind\{render};
 
 #[AsCommand(
@@ -30,7 +31,12 @@ class RenderChessMapCommand extends Command
     {
         $board = new Board();
         $board->setupDefaultPiecePositions();
-        render($this->renderChessMap($board));
+        while (true) {
+            $this->clearTerminal();
+            render($this->renderChessMap($board));
+            sleep(10); // Optional: Adjust the delay as needed
+        }
+
         return Command::SUCCESS;
     }
 
@@ -58,5 +64,15 @@ class RenderChessMapCommand extends Command
         $html .= '</div>';
         $html .= '</div>';
         return $html;
+    }
+    private function clearTerminal(): void
+    {
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            // For Windows
+            system('cls');
+        } else {
+            // For other operating systems (Linux, macOS)
+            system('clear');
+        }
     }
 }

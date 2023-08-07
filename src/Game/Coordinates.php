@@ -26,4 +26,19 @@ class Coordinates implements Hashable
     {
         return $this->file->name . $this->rank;
     }
+
+    public function shift(CoordinatesShift $shift): Coordinates
+    {
+        return new Coordinates(File::cases()[$this->file->value + $shift->fileShift], $this->rank + $shift->rankShift);
+    }
+
+    public function canShift(CoordinatesShift $shift): bool
+    {
+        $file = $this->file->value + $shift->fileShift;
+        $rank = $this->rank + $shift->rankShift;
+        if(($file < 0) || ($file > 8)) return false;
+        if(($rank < 0) || ($rank > 8)) return false;
+
+        return true;
+    }
 }

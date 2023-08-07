@@ -12,6 +12,4 @@ enum File: int
     case F = 6;
     case G = 7;
     case H = 8;
-
-
 }
